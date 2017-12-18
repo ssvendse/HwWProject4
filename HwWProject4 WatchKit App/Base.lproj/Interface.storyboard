@@ -1,15 +1,115 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--WatchFX-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller identifier="Home" title="WatchFX" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="HwWProject4_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label height="0.33000000000000002" alignment="center" text="500" id="PtW-et-Ytx">
+                            <fontDescription key="font" type="system" pointSize="52"/>
+                        </label>
+                        <slider width="1" height="0.33000000000000002" alignment="left" continuous="YES" value="500" maximum="1000" steps="50" id="KHy-xp-qPL">
+                            <connections>
+                                <action selector="amountChanged:" destination="AgC-eL-Hgc" id="N5g-0o-5qj"/>
+                            </connections>
+                        </slider>
+                        <group width="1" height="0.33000000000000002" alignment="left" id="eYB-a4-gbk">
+                            <items>
+                                <picker width="0.59999999999999998" height="1" alignment="left" focusStyle="stack" id="emi-NG-Rkz">
+                                    <connections>
+                                        <action selector="baseCurrencyChanged:" destination="AgC-eL-Hgc" id="1pb-xm-obR"/>
+                                    </connections>
+                                </picker>
+                                <button width="0.40000000000000002" alignment="left" title="Go" id="WaW-jN-uvU">
+                                    <connections>
+                                        <action selector="convertTapped" destination="AgC-eL-Hgc" id="GT0-y3-zDy"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="amountLabel" destination="PtW-et-Ytx" id="cOS-SZ-WFZ"/>
+                        <outlet property="amountSlider" destination="KHy-xp-qPL" id="CeQ-JJ-Dez"/>
+                        <outlet property="currencyPicker" destination="emi-NG-Rkz" id="BSk-Hb-p5B"/>
+                        <segue destination="ZPG-yw-aKC" kind="relationship" relationship="nextPage" id="nTP-wY-vRh"/>
+                    </connections>
+                </controller>
             </objects>
+        </scene>
+        <!--Results-->
+        <scene sceneID="u8i-Bm-ddT">
+            <objects>
+                <controller identifier="Results" id="6wO-qd-LS0" customClass="ResultsInterfaceController" customModule="HwWProject4_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" hidden="YES" id="pYJ-ji-R0Z">
+                            <items>
+                                <tableRow identifier="Row" selectable="NO" id="orZ-7p-78V" customClass="CurrencyRow" customModule="HwWProject4_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="lf5-Vv-muE">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="hfW-9j-qgW"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="group" destination="lf5-Vv-muE" id="Vhb-1n-TOq"/>
+                                        <outlet property="textLabel" destination="hfW-9j-qgW" id="Luy-zs-oaB"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <button width="1" alignment="left" hidden="YES" title="Done" id="jBA-3t-gAd">
+                            <color key="backgroundColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <action selector="doneTapped" destination="6wO-qd-LS0" id="rFd-nh-c5w"/>
+                            </connections>
+                        </button>
+                        <label alignment="center" verticalAlignment="center" text="Fetching..." id="Lp1-hX-NFV"/>
+                    </items>
+                    <connections>
+                        <outlet property="done" destination="jBA-3t-gAd" id="mfa-Vj-wdh"/>
+                        <outlet property="status" destination="Lp1-hX-NFV" id="0oR-1g-gsu"/>
+                        <outlet property="table" destination="pYJ-ji-R0Z" id="Ll3-hf-91c"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="38" y="604"/>
+        </scene>
+        <!--Currencies-->
+        <scene sceneID="S1P-Vd-mpo">
+            <objects>
+                <controller identifier="Currencies" title="Currencies" id="ZPG-yw-aKC" customClass="CurrenciesInterfaceController" customModule="HwWProject4_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="xr4-c2-Xru">
+                            <items>
+                                <tableRow identifier="Row" id="brV-xu-O0z" customClass="CurrencyRow" customModule="HwWProject4_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="NuG-ex-9Sm">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="qeo-oY-OpW"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="group" destination="NuG-ex-9Sm" id="egq-Sb-qDf"/>
+                                        <outlet property="textLabel" destination="qeo-oY-OpW" id="S4N-cL-H8K"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="xr4-c2-Xru" id="ee4-1O-nKA"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="353" y="28"/>
         </scene>
     </scenes>
 </document>
